@@ -1,30 +1,41 @@
 import React from 'react';
 import './github_cards.css';
 
-// card
-// list
+
+  const testData = [
+      {name: "Dan Abramov", avatar_url: "https://avatars0.githubusercontent.com/u/810438?v=4", company: "@facebook"},
+      {name: "Sophie Alpert", avatar_url: "https://avatars2.githubusercontent.com/u/6820?v=4", company: "Humu"},
+      {name: "Sebastian Markbåge", avatar_url: "https://avatars2.githubusercontent.com/u/63648?v=4", company: "Facebook"},
+  ];
+
+const CardList = (props) => (
+  <div>
+  <Card />
+  <Card />
+   </div>
+  )
 
 class Card extends React.Component {
-
-  render(){
+  render(){  
+    const profile = testData[0];
     return(
     <div className="github-profile">
-      <img src = "https://placehold.it/75" />
-      <div className="name"> Name here... </div>
-      <div className="Company"> company here... </div>      
+      <img src = {profile.avatar_url} />
+      <div className="name"> {profile.name}</div>
+      <div className="Company"> {profile.company} </div>      
     <div/>
     </div>
     )
   }
 }
 
-
 class App extends React.Component{
   render(){
+
     return(
       <div>
         <div className="header">{this.props.title}</div>
-        <Card />
+        <CardList />
       </div>
       )
   }
