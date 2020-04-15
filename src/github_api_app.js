@@ -11,7 +11,7 @@ import './github_cards.css';
 
 const CardList = (props) => (
     <div>
-      {props.profiles.map(profile => <Card {...profile} />)}
+      {props.profiles.map(profile => <Card key={profile.id} {...profile} />)}
          </div>
   // the ... is a spread operator: un strucrute
   // the map creates an array and react can read this. 
@@ -38,6 +38,7 @@ class Form extends React.Component {
     event.preventDefault();
     const resp = await axios.get(`https://api.github.com/users/${this.state.userName}`)  
     this.props.onSubmit(resp.data)
+    this.setState({userName: ""})
 
   } ;
 
