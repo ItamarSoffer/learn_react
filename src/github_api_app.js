@@ -9,15 +9,16 @@ import './github_cards.css';
   ];
 
 const CardList = (props) => (
-  <div>
-  <Card />
-  <Card />
-   </div>
+    <div>
+      {props.profiles.map(profile => <Card {...profile} />)}
+         </div>
+  // the ... is a spread operator: un strucrute
+  // the map creates an array and react can read this. 
   )
 
 class Card extends React.Component {
   render(){  
-    const profile = testData[0];
+    const profile = this.props;
     return(
     <div className="github-profile">
       <img src = {profile.avatar_url} />
@@ -29,13 +30,40 @@ class Card extends React.Component {
   }
 }
 
-class App extends React.Component{
+class Form extends React.Component {
   render(){
+  return (
+    <form action="">
+    <input type="text" placeholder="Github username"/>
+    <button> Add card </button>
 
+    </form>
+  )
+
+  }
+
+}
+
+class App extends React.Component{
+ /* 
+  constructor(props){
+    super(props);
+    this.state ={
+      profiles: testData,
+    };
+  }
+*/
+  // easyer:
+  state = {
+    profiles:testData,
+  };
+
+  render(){
     return(
       <div>
         <div className="header">{this.props.title}</div>
-        <CardList />
+        <Form />
+        <CardList profiles={this.state.profiles} />
       </div>
       )
   }
