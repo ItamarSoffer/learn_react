@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './github_cards.css';
 
 
@@ -33,9 +34,10 @@ class Card extends React.Component {
 
 class Form extends React.Component {
   state = {userName: ''}
-  handleSubmit = (event) => {
-    event.preventDefault();  
-    console.log(this.state.userName)
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    const resp = await axios.get(`https://api.github.com/users/${this.state.userName}`)  
+    this.props.onSubmit(resp.data)
 
   } ;
 
@@ -71,11 +73,19 @@ class App extends React.Component{
     profiles:testData,
   };
 
+  addNewProfile = (profileData) => {
+    this.setState(prevState => ({
+      profiles: [...prevState.profiles, profileData]
+    }))
+    console.log('App', profileData)
+
+  };
+
   render(){
     return(
       <div>
         <div className="header">{this.props.title}</div>
-        <Form />
+        <Form onSubmit={this.addNewProfile}/>
         <CardList profiles={this.state.profiles} />
       </div>
       )
